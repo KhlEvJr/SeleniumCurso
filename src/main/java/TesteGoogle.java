@@ -6,7 +6,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TesteGoogle {
 
-    public static void main(String[] args) {
+    @Test
+    public void deveInteragirGoogle(){
         WebDriver driver = new FirefoxDriver();
         System.setProperty("webdriver.gecko.driver", "D:\\DATA\\geckodriver.exe");
         driver.get("https://www.google.com");

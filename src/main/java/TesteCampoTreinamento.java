@@ -14,7 +14,7 @@ public class TesteCampoTreinamento {
 
     @Test
     public void testeTextField() {
-        WebDriver driver = new FirefoxDriver();
+        WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Teste de escrita");
         Assert.assertEquals("Teste de escrita", driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
