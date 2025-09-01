@@ -4,7 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.junit.Assert;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -119,24 +118,27 @@ public class TesteCampoTreinamento {
     @Test
     @Ignore
     public void deveinteragirComLinks() {
-        WebDriver driver = new FirefoxDriver();
+        WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 
         driver.findElement(By.linkText("Voltar")).click();
-        Assert.assertEquals("Voltou", driver.findElement(By.id("Voltar")).getText());
-        driver.quit();    }
+        Assert.assertEquals("Voltar!",driver.findElement(By.id("linkSimple")).getText());
+
+    }
 
     @Test
     public void deveBuscarTextoNaPagina() {
-        WebDriver driver = new FirefoxDriver();
+        WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 
-      // Assert.assertTrue(driver.findElement(By.tagName("body"))
-        //        .getText().contains("Campo de Treinamento"));
-       Assert.assertEquals("Campo de Treinamento",driver.findElement(By.tagName("h3")).getText());
+      //   Assert.assertTrue(driver.findElement(By.tagName("body"))
+       //       .getText().contains("Campo de Treinamento"));
+        Assert.assertEquals("Campo de Treinamento",
+                driver.findElement(By.tagName("h3")).getText());
 
-       Assert.assertEquals("Cuidado onde clica muitas armadilhas...",driver.findElement(By.className("span")).getText());
-       driver.quit();
+        Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", driver.findElement(By.className("facilAchar")).getText());
+
 
     }
+
 }
