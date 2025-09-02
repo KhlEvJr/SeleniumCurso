@@ -124,6 +124,7 @@ public class TesteCampoTreinamento {
         driver.findElement(By.linkText("Voltar")).click();
         Assert.assertEquals("Voltar!",driver.findElement(By.id("linkSimple")).getText());
 
+        Assert.assertEquals("Voltou!", driver.findElement(By.id("resultado")).getText());
     }
 
     @Test
