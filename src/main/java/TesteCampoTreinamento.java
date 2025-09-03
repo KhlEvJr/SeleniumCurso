@@ -2,11 +2,13 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.Dimension;
 
+
+import java.sql.Driver;
 import java.util.List;
 
 public class TesteCampoTreinamento {
@@ -15,6 +17,8 @@ public class TesteCampoTreinamento {
     public void testeTextField() {
         WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Teste de escrita");
         Assert.assertEquals("Teste de escrita", driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
 
@@ -25,6 +29,8 @@ public class TesteCampoTreinamento {
     public void deveIntegarirComTextArea() {
         WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+
         driver.findElement(By.id("elementosForm:sugestoes")).sendKeys("teste\n\naasldjdlks\nUltima linha");
         Assert.assertEquals("teste\n\naasldjdlks\nUltima linha", driver.findElement(By.id("elementosForm:sugestoes")).getAttribute("value"));
 
@@ -36,6 +42,8 @@ public class TesteCampoTreinamento {
     public void deveIntegarirComRadioButton() {
         WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+
         driver.findElement(By.id("elementosForm:sexo:0")).click();
         Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
 
@@ -47,6 +55,8 @@ public class TesteCampoTreinamento {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().setSize(new Dimension(1200, 765));
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+
         driver.findElement(By.id("elementosForm:comidaFavorita:2")).click();
         Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:2")).isSelected());
 
@@ -56,6 +66,8 @@ public class TesteCampoTreinamento {
     public void deveIntegarirComCombo() {
         WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+
         WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
         Select combo = new Select(element);
 //		combo.selectByIndex(2);
@@ -70,6 +82,8 @@ public class TesteCampoTreinamento {
     public void deveVerificarValoresCombo() {
         WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+
         WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
         Select combo = new Select(element);
         List<WebElement> options = combo.getOptions();
@@ -89,6 +103,9 @@ public class TesteCampoTreinamento {
     public void deveVerificarValoresComboMultiplo() {
         WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+
+
         WebElement element = driver.findElement(By.id("elementosForm:esportes"));
         Select combo = new Select(element);
         combo.selectByVisibleText("Natacao");
@@ -108,6 +125,8 @@ public class TesteCampoTreinamento {
     public void deveintragirComBotoes() {
         WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+
         WebElement botao = driver.findElement(By.id("buttonSimple"));
         botao.click();
 
@@ -120,6 +139,7 @@ public class TesteCampoTreinamento {
     public void deveinteragirComLinks() {
         WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
 
         driver.findElement(By.linkText("Voltar")).click();
 
@@ -130,9 +150,10 @@ public class TesteCampoTreinamento {
     public void deveBuscarTextoNaPagina() {
         WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
 
-      //   Assert.assertTrue(driver.findElement(By.tagName("body"))
-       //       .getText().contains("Campo de Treinamento"));
+        //   Assert.assertTrue(driver.findElement(By.tagName("body"))
+        //       .getText().contains("Campo de Treinamento"));
         Assert.assertEquals("Campo de Treinamento",
                 driver.findElement(By.tagName("h3")).getText());
 
