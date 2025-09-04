@@ -41,12 +41,32 @@ public class TesteAlert {
         webDriver.findElement(By.id("confirm")).click();
         alerta = webDriver.switchTo().alert();
         Assert.assertEquals("Confirm Simples", alerta.getText());
+        alerta.accept();
+        Assert.assertFalse("Negado",alerta.getText().isEmpty());
         alerta.dismiss();
-        Assert.assertEquals("Negado", alerta.getText());
-        alerta.dismiss();
+
+
 
     }
 
+    @Test
+    public void deveInteragirComPrompt() {
+        WebDriver webDriver = new ChromeDriver();
+        webDriver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        webDriver.manage().window().setSize(new Dimension(1024, 768));
+
+        webDriver.findElement(By.id("prompt")).click();
+        Alert alerta =  webDriver.switchTo().alert();
+        Assert.assertEquals("Digite um numero", alerta.getText());
+        alerta.sendKeys("12");
+        alerta.accept();
+        Assert.assertEquals("Era 12?", alerta.getText());
+        alerta.accept();
+        Assert.assertFalse(":D",alerta.getText().isEmpty());
+        alerta.dismiss();
+
+
+    }
 
 
     }
