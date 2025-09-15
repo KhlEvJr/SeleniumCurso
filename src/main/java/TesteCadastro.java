@@ -1,112 +1,95 @@
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
 
 public class TesteCadastro {
-    @Test
-    public void deveinteragirComAlertPrompt() {
+
+    private WebDriver driver;
+    private DSL dsl;
+    private CampoTreinamentoPage page;
+
+    @Before
+    public void inicializa() {
         WebDriver driver = new ChromeDriver();
-        driver.manage().window().setSize(new Dimension(1024, 768));
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+        dsl = new DSL(driver);
+        page = new CampoTreinamentoPage(driver);
+    }
 
-        driver.findElement(By.id("elementosForm:nome")).sendKeys("Wagner");
-        driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Costas");
-        driver.findElement(By.id("elementosForm:sexo:0")).click();
-        driver.findElement(By.id("elementosForm:comidaFavorita:2")).click();
-        new Select(driver.findElement(By.id("elementosForm:escolaridade")))
-                .selectByVisibleText("Mestrado");
-        new Select(driver.findElement(By.id("elementosForm:esportes")))
-                .selectByVisibleText("Natação");
-        driver.findElement(By.id("elementosForm:cadastrar")).click();
+    @After
+    public void finaliza() {
+        driver.quit();
+    }
 
-        Assert.assertTrue(driver.findElement(By.id("resultado")).getText().startsWith("Castrado!"));
-        Assert.assertTrue(driver.findElement(By.id("descNome")).getText().endsWith("Wagner!"));
-        Assert.assertEquals("Sobrenome: Costa", driver.findElement(By.id("descSobrenome")).getText().equals("Costas"));
-        Assert.assertEquals("Sexo: Masculino", driver.findElement(By.id("descSexo")).getText().equals("Masculino"));
-        Assert.assertEquals("Comida: Pizza", driver.findElement(By.id("descComida")).getText().equals("Pizza"));
-        Assert.assertEquals("Escolaridade: Mestrado", driver.findElement(By.id("descEscolaridade")).getText().equals("Mestrado"));
-        Assert.assertEquals("Esportes: Natacao", driver.findElement(By.id("descEsportes")).getText().equals("Natacao"));
+
+    @Test
+    public void deveRealizarCadastroComSucesso() {
+        page.setNome("Jr");
+        page.setSobrenome("Louzada");
+        page.setSexoMasculino();
+        page.setComida();
+        page.setEscolaridade("Mestrado");
+        page.setEsporte("Natacao");
+        page.cadastrar();
+
+        Assert.assertTrue(page.obterResultadoCadastro().startsWith("Cadastrado!"));
+        Assert.assertTrue(page.obterNomeCadastro().endsWith("Jr"));
+        Assert.assertEquals("Sobrenome: Louzada", page.obterSobrenomeCadastro());
+        Assert.assertEquals("Sexo: Masculino", page.obterSexoCadastro());
+        Assert.assertEquals("Comida: Pizza", page.obterComidaCadastro());
+        Assert.assertEquals("Escolaridade: Mestrado", page.obterEscolaridadeCadastro());
+        Assert.assertEquals("Esportes: Natacao", page.obterEsporteCadastro());
 
     }
 
     @Test
     public void deveValidarNomeObrigatorio() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().setSize(new Dimension(1024, 768));
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-
-        driver.findElement(By.id("elementosForm:cadastrar")).click();
-        Alert alerta = driver.switchTo().alert();
-        Assert.assertEquals("Nome eh obrigatorio", alerta.getText());
+        page.cadastrar();
+        Assert.assertEquals("Nome eh obrigatorio", dsl.alertaObterTextoEAceita());
 
 
     }
 
     @Test
     public void deveValidarSobrenomeObrigatorio() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().setSize(new Dimension(1024, 768));
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-
-        driver.findElement(By.id("elementosForm:nome")).sendKeys("Nome qualquer");
-        driver.findElement(By.id("elementosForm:cadastrar")).click();
-        Alert alerta = driver.switchTo().alert();
-        Assert.assertEquals("Sobrenome eh obrigato", alerta.getText());
+        page.setNome("Nome qualquer");
+        page.cadastrar();
+        Assert.assertEquals("Sobrenome eh obrigatorio", dsl.alertaObterTextoEAceita());
     }
 
     @Test
     public void deveValidarSexoObrigatorio() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().setSize(new Dimension(1024, 768));
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-
-        driver.findElement(By.id("elementosForm:nome")).sendKeys("Nome qualquer");
-        driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Sobrenome qualquer");
-        driver.findElement(By.id("elementosForm:cadastrar")).click();
-        Alert alerta = driver.switchTo().alert();
-        Assert.assertEquals("Sexo eh obrigatorio", alerta.getText());
-
+        page.setNome("Nome qualquer");
+        page.setSobrenome("Sobrenome qualquer");
+        page.cadastrar();
+        Assert.assertEquals("Sexo eh obrigatorio", dsl.alertaObterTextoEAceita());
     }
 
     @Test
     public void deveValidarComidaVegetariana() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().setSize(new Dimension(1024, 768));
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-
-        driver.findElement(By.id("elementosForm:nome")).sendKeys("Nome qualquer");
-        driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Sobrenome qualquer");
-        driver.findElement(By.id("elementosForm:sexo:1")).click();
-        driver.findElement(By.id("elementosForm:comidaFavorita:0")).click();
-        driver.findElement(By.id("elementosForm:comidaFavorita:3")).click();
-        driver.findElement(By.id("elementosForm:cadastrar")).click();
-        Alert alerta = driver.switchTo().alert();
-        Assert.assertEquals("Tem certeza que voce eh vegetariano?", alerta.getText());
+      page.setNome("Nome qualquer");
+      page.setSobrenome("Sobrenome qualquer");
+      page.setSexoFeminio();
+      page.setComidaCarne();
+      page.setComidaVegetariana();
+      page.cadastrar();
+        Assert.assertEquals("Tem certeza que voce eh vegetariano?", dsl.alertaObterTextoEAceita());
     }
 
     @Test
     public void deveValidarEsportistaIndeciso() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().setSize(new Dimension(1024, 768));
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-
-        driver.findElement(By.id("elementosForm:nome")).sendKeys("Nome qualquer");
-        driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Sobrenome qualquer");
-        driver.findElement(By.id("elementosForm:sexo:1")).click();
-        driver.findElement(By.id("elementosForm:comidaFavorita:0")).click();
-        Select combo = new Select(driver.findElement(By.id("elementosForm:esportes")));
-        combo.selectByVisibleText("Karate");
-        combo.selectByVisibleText("O que eh esporte?");
-        driver.findElement(By.id("elementosForm:cadastrar")).click();
-        Alert alerta = driver.switchTo().alert();
-        Assert.assertEquals("Voce faz esporte ou nao?", alerta.getText());
+        page.setNome("Nome qualquer");
+        page.setSobrenome("Sobrenome qualquer");
+        page.setSexoFeminio();
+        page.setComidaCarne();
+        page.cadastrar();
+        Assert.assertEquals("Voce faz esporte ou nao?", dsl.alertaObterTextoEAceita());
     }
 }
