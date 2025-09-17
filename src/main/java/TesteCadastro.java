@@ -45,7 +45,7 @@ public class TesteCadastro {
         Assert.assertEquals("Sexo: Masculino", page.obterSexoCadastro());
         Assert.assertEquals("Comida: Pizza", page.obterComidaCadastro());
         Assert.assertEquals("Escolaridade: Mestrado", page.obterEscolaridadeCadastro());
-        Assert.assertEquals("Esportes: Natacao", page.obterEsporteCadastro());
+        Assert.assertEquals("Esportes: Natacao", page.obterEsportesCadastro());
 
     }
 
@@ -89,6 +89,7 @@ public class TesteCadastro {
         page.setSobrenome("Sobrenome qualquer");
         page.setSexoFeminio();
         page.setComidaCarne();
+        page.setEsporte("Karate", "O que eh esporte?");
         page.cadastrar();
         Assert.assertEquals("Voce faz esporte ou nao?", dsl.alertaObterTextoEAceita());
     }
