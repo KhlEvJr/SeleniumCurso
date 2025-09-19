@@ -35,7 +35,7 @@ public class TesteAlert {
         String texto = dsl.alertaObterTextoEAceita();
         Assert.assertEquals("Alert Simples", texto);
 
-        dsl.escreve("elementosForm:nome", texto);
+        dsl.escrever("elementosForm:nome", texto);
     }
 
     @Test
@@ -58,4 +58,5 @@ public class TesteAlert {
         Assert.assertEquals(":D", dsl.alertaObterTextoEAceita());
     }
 }
+
 
