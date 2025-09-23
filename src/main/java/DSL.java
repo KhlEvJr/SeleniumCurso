@@ -3,7 +3,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 public class DSL {
 
@@ -15,6 +15,13 @@ public class DSL {
     }
 
 
+    /********* TextField e TextArea ************/
+
+    public void escrever(By by, String texto) {
+        driver.findElement(by).clear();
+        driver.findElement(by).sendKeys(texto);
+    }
+
     public void escrever(String id_campo, String texto) {
         escrever(By.id(id_campo), texto);
     }
@@ -23,6 +30,7 @@ public class DSL {
         return driver.findElement(By.id(id_campo)).getAttribute("value");
     }
 
+    /********* Radio e Check ************/
 
     public void clicarRadio(String id) {
         driver.findElement(By.id(id)).click();
@@ -41,6 +49,9 @@ public class DSL {
     public boolean isCheckMarcado(String id) {
         return driver.findElement(By.id("id")).isSelected();
     }
+
+    /********* Combo ************/
+
 
     public void selecionarCombo(String id, String valor) {
         WebElement element = driver.findElement(By.id(id));
@@ -99,6 +110,8 @@ public class DSL {
         return false;
     }
 
+    /********* Botao ************/
+
     public void clicarBotao(String id) {
         driver.findElement(By.id("id")).click();
     }
@@ -108,9 +121,13 @@ public class DSL {
         return driver.findElement(By.id(id)).getAttribute("value");
     }
 
+    /********* Link ************/
+
     public void clicarLink(String link) {
         driver.findElement(By.linkText(link)).click();
     }
+
+    /********* Textos ************/
 
     public String obterTexto(By by) {
         return driver.findElement(by).getText();
@@ -119,6 +136,8 @@ public class DSL {
     public String obterTexto(String id) {
         return obterTexto(By.id(id));
     }
+
+    /********* Alerts ************/
 
     public String alertaObterTexto() {
         Alert alert = driver.switchTo().alert();
@@ -149,7 +168,7 @@ public class DSL {
 
     //*********** Frames e Janelas ************//
 
-    public void entrarFrame(String id){
+    public void entrarFrame(String id) {
         driver.switchTo().frame(id);
     }
 
@@ -157,38 +176,59 @@ public class DSL {
         driver.switchTo().defaultContent();
     }
 
-    public void trocarDeJanela(String id){
+    public void trocarDeJanela(String id) {
         driver.switchTo().window(id);
     }
 
     // ************* JS ******************//
 
-    public Objects executarJS(String cmd,Objects...param){
+    public Object executarJS(String cmd, Object... param) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         return js.executeScript(cmd, param);
     }
 
     //*********** Tabela ************ //
 
-    public void CLicarBotãoTabela(String colunaBuscas, String valor, String colunaBotao, String idTabela){
+    public void clicarBotaoTabela(String colunaBusca, String valor, String colunaBotao, String idTabela) {
 
         //Procurar coluna do registro
-        WebElement tabela = driver.findElement(By.xpath("//*[@id='elementosForm:tableUsuario']"));
-       int idColuna = obterIndiceColuna(colunaBuscas, tabela);
+        WebElement tabela = driver.findElement(By.xpath("//*[@id='elementosForm:tableUsuarios']"));
+        int idColuna = obterIndiceColuna(colunaBusca, tabela);
 
-       // encontrar a linha do registro
+        // encontrar a linha do registro
 
         int idLinha = obterIndiceLinha(valor, tabela, idColuna);
 
         //procurar coluina do botão
-        int idCOlunaBotao = obterIndiceColuna(colunaBotao,tabela);
+        int idColunaBotao = obterIndiceColuna(colunaBotao, tabela);
 
         // clicar no botão da celula encontrada
-        WebElement celula = tabela.findElement(By.xpath(".//tr["+idLinha+"]/td["+idColuna+"]"));
+        WebElement celula = tabela.findElement(By.xpath(".//tr[" + idLinha + "]/td[" + idColunaBotao + "]"));
         celula.findElement(By.xpath(".//input")).click();
 
     }
 
+    protected int obterIndiceLinha(String valor, WebElement tabela, int idColuna) {
+        List<WebElement> linhas = tabela.findElements(By.xpath("./tbody/tr/td[" + idColuna + "]"));
+        int idLinha = -1;
+        for (int i = 0; i < linhas.size(); i++) {
+            if (linhas.get(i).getText().equals(valor)) {
+                idLinha = i + 1;
+                break;
+            }
+        }
+        return idLinha;
+    }
 
-
+    protected int obterIndiceColuna(String coluna, WebElement tabela) {
+        List<WebElement> colunas = tabela.findElements(By.xpath(".//th"));
+        int idColuna = -1;
+        for (int i = 0; i < colunas.size(); i++) {
+            if (colunas.get(i).getText().equals(coluna)) {
+                idColuna = i + 1;
+                break;
+            }
+        }
+        return idColuna;
+    }
 }

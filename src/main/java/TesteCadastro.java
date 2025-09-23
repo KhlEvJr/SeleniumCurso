@@ -39,8 +39,8 @@ public class TesteCadastro {
         page.setEsporte("Natacao");
         page.cadastrar();
 
-        Assert.assertTrue(page.obterResultadoCadastro().startsWith("Cadastrado!"));
-        Assert.assertTrue(page.obterNomeCadastro().endsWith("Jr"));
+        Assert.assertEquals("Cadastrado!", page.obterResultadoCadastro());
+        Assert.assertEquals("Jr", page.obterNomeCadastro());
         Assert.assertEquals("Sobrenome: Louzada", page.obterSobrenomeCadastro());
         Assert.assertEquals("Sexo: Masculino", page.obterSexoCadastro());
         Assert.assertEquals("Comida: Pizza", page.obterComidaCadastro());

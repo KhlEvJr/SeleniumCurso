@@ -34,7 +34,7 @@ public class TestesFramesComJanelas {
         String msg = dsl.alertaObterTextoEAceita();
         Assert.assertEquals("Frame OK!", msg);
 
-        dsl.sairFrame();
+        dsl.sairframe();
         dsl.escrever("elementosForm:nome", msg);
     }
 
@@ -53,10 +53,10 @@ public class TestesFramesComJanelas {
     @Test
     public void deveInteragirComJanelas(){
         dsl.clicarBotao("buttonPopUpEasy");
-        dsl.trocarJanela("Popup");
+        dsl.trocarDeJanela("Popup");
         //dsl.escreve(By.tagName("textarea"), "Deu certo?");
         driver.close();
-        dsl.trocarJanela("");
+        dsl.trocarDeJanela("");
         //dsl.escreve(By.tagName("textarea"), "e agora?");
     }
 
@@ -65,9 +65,9 @@ public class TestesFramesComJanelas {
         dsl.clicarBotao("buttonPopUpHard");
         System.out.println(driver.getWindowHandle());
         System.out.println(driver.getWindowHandles());
-        dsl.trocarJanela((String) driver.getWindowHandles().toArray()[1]);
+        dsl.trocarDeJanela((String) driver.getWindowHandles().toArray()[1]);
         //dsl.escreve(By.tagName("textarea"), "Deu certo?");
-        dsl.trocarJanela((String) driver.getWindowHandles().toArray()[0]);
+        dsl.trocarDeJanela((String) driver.getWindowHandles().toArray()[0]);
         //dsl.escreve(By.tagName("textarea"), "e agora?");
     }
 }
