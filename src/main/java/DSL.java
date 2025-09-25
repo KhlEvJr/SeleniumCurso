@@ -32,14 +32,16 @@ public class DSL {
 
     /********* Radio e Check ************/
 
+    public void clicarRadio(By by) {
+        driver.findElement(by).click();
+    }
+
     public void clicarRadio(String id) {
-        driver.findElement(By.id(id)).click();
+        clicarRadio(By.id(id));
     }
 
     public boolean isRadioMarcado(String id) {
         return driver.findElement(By.id("id")).isSelected();
-
-
     }
 
     public void clicarCheck(String id) {
@@ -47,8 +49,10 @@ public class DSL {
     }
 
     public boolean isCheckMarcado(String id) {
-        return driver.findElement(By.id("id")).isSelected();
+        return driver.findElement(By.id(id)).isSelected();
+
     }
+
 
     /********* Combo ************/
 
@@ -166,7 +170,7 @@ public class DSL {
         alert.accept();
     }
 
-    //*********** Frames e Janelas ************//
+//*********** Frames e Janelas ************//
 
     public void entrarFrame(String id) {
         driver.switchTo().frame(id);
@@ -180,14 +184,14 @@ public class DSL {
         driver.switchTo().window(id);
     }
 
-    // ************* JS ******************//
+// ************* JS ******************//
 
     public Object executarJS(String cmd, Object... param) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         return js.executeScript(cmd, param);
     }
 
-    //*********** Tabela ************ //
+//*********** Tabela ************ //
 
     public void clicarBotaoTabela(String colunaBusca, String valor, String colunaBotao, String idTabela) {
 
