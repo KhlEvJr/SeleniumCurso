@@ -1,3 +1,4 @@
+import SeleniumCursoCORE.DSL;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -5,9 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class TesteSincronismo {
@@ -47,8 +48,8 @@ public class TesteSincronismo {
 
     public void deveUtilizarEsperaExplicita() throws InterruptedException {
       dsl.clicarBotao("buttonDelay");
-      WebDriverWait wait = new WebDriverWait(driver,30);
-      wait.until(ExpectedCondition.presenceOfElementLocated(By.id("novoCampo")));
+      WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
+      wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("novoCampo")));
       dsl.escrever("novoCampo", "Deu certo?");
     }
 
