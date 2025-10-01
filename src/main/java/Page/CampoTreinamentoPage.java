@@ -1,3 +1,5 @@
+package Page;
+
 import SeleniumCursoCORE.DSL;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
