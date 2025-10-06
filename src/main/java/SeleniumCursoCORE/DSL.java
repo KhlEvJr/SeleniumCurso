@@ -12,7 +12,7 @@ public class DSL {
     private WebDriver driver;
 
 
-    public DSL(WebDriver driver) {
+    public DSL() {
         this.driver = driver;
     }
 
