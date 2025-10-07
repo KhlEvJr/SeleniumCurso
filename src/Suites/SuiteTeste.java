@@ -6,7 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 import src.main.test.TesteRegrasCadastro;
-
 import src.main.test.java.TesteCadastro;
 
 

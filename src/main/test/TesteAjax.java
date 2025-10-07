@@ -23,7 +23,7 @@ public class TesteAjax {
         driver = new ChromeDriver();
        driver.manage().window().setSize(new Dimension(1920, 1080));
         driver.get("https://www.primefaces.org/showcase/ui/ajax/basic.xhtml");
-        dsl = new DSL(driver);
+        dsl = new DSL();
     }
 
     @After

@@ -21,10 +21,10 @@ public class TesteSincronismo {
     @Before
     public void inicializa() {
         driver = new ChromeDriver();
-        dsl = new DSL(driver);
+        dsl = new DSL() ;
         driver.manage().window().setSize(new Dimension(1024, 768));
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-        dsl = new DSL(driver);
+
 
     }
 

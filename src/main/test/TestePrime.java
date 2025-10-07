@@ -21,7 +21,7 @@ public class TestePrime {
          driver = new ChromeDriver();
          driver.manage().window().setSize(new Dimension(1024, 768));
          driver.get("https://www.primefaces.org/showcase/ui/input/oneRadio.xhtml");
-         dsl = new DSL(driver);
+         dsl = new DSL();
      }
 
      @After
