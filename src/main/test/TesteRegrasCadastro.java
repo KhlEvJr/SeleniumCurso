@@ -46,8 +46,8 @@ public class TesteRegrasCadastro {
         driver = new FirefoxDriver();
         driver.manage().window().setSize(new Dimension(1200, 765));
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-        dsl = new DSL(driver);
-        page = new CampoTreinamentoPage(driver);
+        dsl = new DSL();
+        page = new CampoTreinamentoPage();
     }
      @After
      public void finaliza() {
