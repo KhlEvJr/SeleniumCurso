@@ -1,4 +1,4 @@
-package src.main.test.java;
+package Teste;
 
 import Page.CampoTreinamentoPage;
 import SeleniumCursoCORE.BaseTest;

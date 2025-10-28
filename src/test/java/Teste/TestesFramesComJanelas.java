@@ -1,4 +1,4 @@
-package src.main.test;
+package Teste;
 
 import SeleniumCursoCORE.DSL;
 import org.junit.After;

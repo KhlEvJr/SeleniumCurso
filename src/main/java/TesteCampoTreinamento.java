@@ -1,4 +1,4 @@
-package seleniumCurso;
+package Teste;
 
 
 import SeleniumCursoCORE.DSL;
@@ -25,7 +25,7 @@ public class TesteCampoTreinamento {
         WebDriver driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
         driver.manage().window().setSize(new Dimension(1920, 1080));
-        dsl = new DSL(driver);
+        dsl = new DSL();
     }
 
     @After
